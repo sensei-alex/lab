@@ -31,6 +31,6 @@ tasks:
       file: code.py
       text: ""
 
-    preview:
+    runner:
       type: none # planned: flasher,uart,webserial,iframe
 
