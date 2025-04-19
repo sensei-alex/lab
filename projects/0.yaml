@@ -1,0 +1,36 @@
+---
+module: hardware
+name:
+  en: (Project Name)
+  ru: (Название Проекта)
+
+tasks:
+  - lesson:
+      en: |
+        Welcome to LAB - a hands-on programming course for beginners!
+
+        A quick UI overview:
+        - this window is for the task
+        - the middle window is the editor
+        - the buttons below the editor run / save / show a clue
+        - and the right window is a preview
+
+        Click the next button (in the bottom right) to continue!
+      ru: |
+        Добро пожаловать в LAB - практический курс программирования для начинающих!
+
+        Коротко об интерфейсе:
+        - это окно задачи
+        - центральное окно - редактор
+        - кнопки под редактором запускают / сохраняют / показывают подсказку
+        - окно справа - предпросмотр
+
+        Нажмите на кнопку далее (в правом нижнем углу), чтобы продолжить
+
+    editor:
+      file: code.py
+      text: ""
+
+    preview:
+      type: none # planned: flasher,uart,webserial,iframe
+

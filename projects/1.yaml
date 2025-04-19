@@ -1,0 +1,5 @@
+---
+module: hardware
+name:
+  en: Smart Home
+  ru: Умный Дом
