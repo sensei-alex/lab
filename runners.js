@@ -4,6 +4,9 @@ async function setupUartRunner() {
   const term = configureTerminal();
   const uart = await configureUartConnection();
 
+  term.fit();
+  uart.write(String.fromCharCode(4)); // reset using CTRL+D
+
   let buffer = "";
   let resolveLastCommand = undefined;
 

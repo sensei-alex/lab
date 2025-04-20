@@ -28,13 +28,20 @@ function configureTerminal() {
   });
 
   const fitAddon = new FitAddon.FitAddon();
+  const fit = () => {
+    // the library is weird
+    fitAddon.fit();
+    setTimeout(fitAddon.fit(), 200);
+    setTimeout(fitAddon.fit(), 400);
+    setTimeout(fitAddon.fit(), 600);
+  };
   terminal.loadAddon(fitAddon);
   terminal.open(ui.runner);
 
-  window.addEventListener("resize", () => fitAddon.fit());
+  window.addEventListener("resize", fit);
 
   const write = (char) => terminal.write(char);
   const onData = (callback) => terminal.onData(callback);
 
-  return { write, onData };
+  return { write, onData, fit };
 }
