@@ -1,4 +1,6 @@
 async function setupUartRunner() {
+  ui.runner.innerHTML = "";
+
   runner.type = "uart";
 
   const term = configureTerminal();

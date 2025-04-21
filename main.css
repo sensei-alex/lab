@@ -29,7 +29,8 @@
   --base: #1e1e2e;
   --mantle: #181825;
   --crust: #11111b;
-  --accent: #74c7ec;
+  --accent: #94e2d5;
+  --heading: #b4befe;
   --text: #cdd6f4;
 }
 
@@ -58,6 +59,32 @@ a {
 .lesson {
   grid-area: lessn;
   background: var(--base);
+  padding: 1rem;
+  overflow: auto;
+
+  & .sketch {
+    width: 100%;
+  }
+
+  & h1,
+  & h2,
+  & p {
+    margin: 1.5rem 0;
+    max-width: 70ch;
+  }
+
+  & h1 {
+    margin-top: 0;
+  }
+
+  & h1,
+  & h2 {
+    color: var(--heading);
+  }
+
+  & em {
+    color: var(--accent);
+  }
 }
 
 .editor {
