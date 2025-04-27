@@ -1,7 +1,7 @@
 const ENTER_KEY = String.fromCharCode(13);
 const CONTROL_D = String.fromCharCode(4);
 
-async function configureUartConnection() {
+async function pickSerialPort() {
   if (!("serial" in navigator)) {
     alert(
       "Please use a chromium-based browser (e.g., brave, edge, vidaldi, chrome, etc.)",
@@ -24,6 +24,12 @@ async function configureUartConnection() {
     );
     return;
   }
+
+  return port;
+}
+
+async function configureUartConnection() {
+  const port = await pickSerialPort();
 
   await port.open({ baudRate: 115200 });
 

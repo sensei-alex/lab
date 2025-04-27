@@ -5,44 +5,137 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LAB</title>
+    <script src="https://unpkg.com/esptool-js/bundle.js"></script>
+    <script src="uart.js"></script>
     <link rel="stylesheet" href="common.css" />
 
     <style>
+      html {
+        background: var(--base);
+      }
+
       body {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        margin: auto;
         background: var(--base);
-        text-align: center;
         height: 100vh;
+        width: fit-content;
       }
 
       h1 {
         font-size: 2rem;
       }
 
-      a {
-        display: flex;
+      #trigger {
+        color: #f9e2af;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      ol {
+        margin: 1rem 0;
+        padding: 0;
+        width: 65ch;
+        min-width: 0;
+        list-style: none;
+      }
+
+      li {
+        height: 2rem;
+      }
+
+      li::before {
+        content: attr(seq);
+        display: inline-flex;
         justify-content: center;
         align-items: center;
-        text-decoration: none;
-      }
-
-      .button {
-        width: max-content;
-        background: var(--mantle);
-      }
-
-      p {
-        margin: 1rem;
-        max-width: 65ch;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: var(--accent);
+        color: var(--base);
+        border-radius: 0.5rem;
       }
     </style>
   </head>
   <body>
-    <h1>Flasher</h1>
-    <p>The first thing we'll need to do is to install the base system onto your board.<br>Please plug it in while holding the BOOT button (opposite of RST) and press:</p>
-    <a class="button" href="code.html">FLASH (not implemented)</a>
+    <main class="lesson">
+      <h1>Setting up the board</h1>
+
+      <img id="sketch" class="sketch" src="flash.svg" alt="sketch" />
+
+      <ol>
+        <li seq="A">
+          <span>Hold the button opposite of RST</span>
+        </li>
+        <li seq="B">
+          <span>Plug in the USB</span>
+        </li>
+        <li seq="C">
+          <span>Release the boot button</span>
+        </li>
+        <li seq="D">
+          <a id="trigger" href="code.html">
+            Click here to FLASH
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-zap-icon lucide-zap"
+            >
+              <path
+                d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+              />
+            </svg>
+          </a>
+        </li>
+      </ol>
+    </main>
+
+    <script>
+      document.getElementById("trigger").addEventListener("click", main);
+
+      const espLoaderTerminal = {
+        clean() {
+          console.log("clear");
+        },
+        writeLine(data) {
+          console.log("data", data);
+        },
+        write(data) {
+          console.log("ch", data);
+        },
+      };
+
+      async function main() {
+        const port = await pickSerialPort();
+
+        const flashOptions = {
+          transport: new Transport(port, true),
+          baudrate: 1000000,
+          terminal: espLoaderTerminal,
+          debugLogging: debugLogging.checked,
+        };
+
+        const esploader = new ESPLoader(flashOptions);
+
+        const chip = await esploader.main();
+
+        const reflashOptions = {
+          todo,
+        };
+
+        await esploader.writeFlash(flashOptions);
+      }
+    </script>
   </body>
 </html>
