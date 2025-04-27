@@ -8,40 +8,105 @@
     <link rel="stylesheet" href="common.css" />
 
     <style>
+      html {
+        background: var(--base);
+      }
+
       body {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
+        margin: auto;
         background: var(--base);
-        text-align: center;
         height: 100vh;
+        width: fit-content;
       }
 
       h1 {
         font-size: 2rem;
       }
 
-      a {
-        display: flex;
+      #trigger {
+        color: #f9e2af;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      ol {
+        margin: 1rem 0;
+        padding: 0;
+        width: 65ch;
+        min-width: 0;
+        list-style: none;
+      }
+
+      li {
+        height: 2rem;
+      }
+
+      li::before {
+        content: attr(seq);
+        display: inline-flex;
         justify-content: center;
         align-items: center;
-        text-decoration: none;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: var(--accent);
+        color: var(--base);
+        border-radius: 0.5rem;
+      }
+
+      blockquote {
+        margin-bottom: 2rem;
+
+        &::before {
+          content: "> ";
+          color: var(--accent);
+        }
+      }
+
+      .lesson {
+        overflow: hidden;
       }
 
       .button {
-        width: max-content;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
         background: var(--mantle);
-      }
-
-      p {
-        margin: 1rem;
+        margin: 1rem 0;
+        text-decoration: none;
       }
     </style>
   </head>
   <body>
-    <h1>LAB</h1>
-    <p>A hands-on programming course for beginners</p>
-    <a class="button" href="start.html">Get Started</a>
+    <main class="lesson">
+      <h1>LAB</h1>
+
+      <blockquote>A comprehensive hands-on programming course</blockquote>
+
+      <img id="sketch" class="sketch" src="cover.svg" alt="sketch" />
+
+      <ol>
+        <li seq="1">
+          <span>Hardware</span>
+        </li>
+        <li seq="2">
+          <span>Websites</span>
+        </li>
+        <li seq="3">
+          <span>Linux</span>
+        </li>
+        <li seq="4">
+          <span>Applications</span>
+        </li>
+      </ol>
+
+      <a class="button" href="start.html">Start</a>
+    </main>
   </body>
 </html>
