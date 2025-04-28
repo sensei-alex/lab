@@ -15,7 +15,11 @@
       body {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 1rem;
         margin: auto;
         background: var(--base);
         min-height: 100vh;
@@ -23,40 +27,19 @@
         max-width: 100%;
       }
 
+      a {
+        color: var(--text);
+        text-decoration: none;
+      }
+
       h1 {
         font-size: 2rem;
       }
 
-      ol {
-        margin: 1rem 0;
-        padding: 0;
-        min-width: 0;
-        list-style: none;
-      }
-
-      li {
-        height: 2rem;
-      }
-
-      li::before {
-        content: attr(seq);
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        width: 1.5rem;
-        height: 1.5rem;
-        background: var(--accent);
-        color: var(--base);
-        border-radius: 0.5rem;
-      }
-
-      blockquote {
-        margin-bottom: 2rem;
-
-        &::before {
-          content: "> ";
-          color: var(--accent);
-        }
+      svg {
+        color: var(--accent);
+        width: 65ch;
+        max-width: 80vw;
       }
 
       .button {
@@ -66,63 +49,45 @@
         align-items: center;
         width: 100%;
         background: var(--mantle);
-        margin: 2rem 0;
+        margin: 1rem 0;
         text-decoration: none;
       }
     </style>
   </head>
   <body>
-    <main class="lesson">
-      <h1>
-        LAB
-        <span style="color: #f9e2af">
-          (under construction
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-construction-icon lucide-construction"
-          >
-            <rect x="2" y="6" width="20" height="8" rx="1" />
-            <path d="M17 14v7" />
-            <path d="M7 14v7" />
-            <path d="M17 3v3" />
-            <path d="M7 3v3" />
-            <path d="M10 14 2.3 6.3" />
-            <path d="m14 6 7.7 7.7" />
-            <path d="m8 6 8 8" /></svg
-          >)
-        </span>
-      </h1>
+    <!-- this is for the bots ig -->
+    <!-- just didn't have the time to make it properly -->
+    <span style="filter: opacity(0); user-select: none; height: 0"
+      >Choose your language</span
+    >
 
-      <blockquote>A comprehensive hands-on programming course</blockquote>
+    <main>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-languages-icon lucide-languages"
+      >
+        <path d="m5 8 6 6" />
+        <path d="m4 14 6-6 2-3" />
+        <path d="M2 5h12" />
+        <path d="M7 2h1" />
+        <path d="m22 22-5-10-5 10" />
+        <path d="M14 18h6" />
+      </svg>
 
-      <img id="sketch" class="sketch" src="cover.svg" alt="sketch" />
+      <h1>Choose your language</h1>
 
-      <p>Covers:</p>
-
-      <ol>
-        <li seq="1">
-          <span>Hardware</span>
-        </li>
-        <li seq="2">
-          <span>Websites</span>
-        </li>
-        <li seq="3">
-          <span>Linux</span>
-        </li>
-        <li seq="4">
-          <span>Applications</span>
-        </li>
-      </ol>
-
-      <a class="button" href="start.html">Start</a>
+      <a class="button" href="/en">English</a>
+      <a class="button" href="/ru">Русский</a>
     </main>
+
+    <h2>
+      <a href="/"> LAB </a>
+    </h2>
   </body>
 </html>
