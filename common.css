@@ -44,6 +44,10 @@ body {
 a {
   color: var(--accent);
 }
+::selection {
+  color: var(--base);
+  background: var(--accent);
+}
 
 .button {
   box-sizing: border-box;

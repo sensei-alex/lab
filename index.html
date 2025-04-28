@@ -18,26 +18,18 @@
         justify-content: center;
         margin: auto;
         background: var(--base);
-        height: 100vh;
-        width: fit-content;
+        min-height: 100vh;
+        width: 65ch;
+        max-width: 100%;
       }
 
       h1 {
         font-size: 2rem;
       }
 
-      #trigger {
-        color: #f9e2af;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
       ol {
         margin: 1rem 0;
         padding: 0;
-        width: 65ch;
         min-width: 0;
         list-style: none;
       }
@@ -67,10 +59,6 @@
         }
       }
 
-      .lesson {
-        overflow: hidden;
-      }
-
       .button {
         box-sizing: border-box;
         display: flex;
@@ -78,18 +66,46 @@
         align-items: center;
         width: 100%;
         background: var(--mantle);
-        margin: 1rem 0;
+        margin: 2rem 0;
         text-decoration: none;
       }
     </style>
   </head>
   <body>
     <main class="lesson">
-      <h1>LAB</h1>
+      <h1>
+        LAB
+        <span style="color: #f9e2af">
+          (under construction
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="lucide lucide-construction-icon lucide-construction"
+          >
+            <rect x="2" y="6" width="20" height="8" rx="1" />
+            <path d="M17 14v7" />
+            <path d="M7 14v7" />
+            <path d="M17 3v3" />
+            <path d="M7 3v3" />
+            <path d="M10 14 2.3 6.3" />
+            <path d="m14 6 7.7 7.7" />
+            <path d="m8 6 8 8" /></svg
+          >)
+        </span>
+      </h1>
 
       <blockquote>A comprehensive hands-on programming course</blockquote>
 
       <img id="sketch" class="sketch" src="cover.svg" alt="sketch" />
+
+      <p>Covers:</p>
 
       <ol>
         <li seq="1">

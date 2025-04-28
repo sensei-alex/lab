@@ -45,6 +45,25 @@
         margin-top: 2rem;
         cursor: pointer;
       }
+
+      @media (max-width: 600px) {
+        body {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto;
+          min-height: 100vh;
+          height: auto;
+        }
+
+        svg {
+          height: auto;
+          width: 100vw;
+          order: -1;
+        }
+
+        .arrow {
+          transform: rotate(270deg);
+        }
+      }
     </style>
   </head>
   <body>
