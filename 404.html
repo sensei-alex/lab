@@ -1,0 +1,103 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAB</title>
+    <link rel="stylesheet" href="common.css" />
+
+    <style>
+      html {
+        background: var(--base);
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        box-sizing: border-box;
+        padding: 1rem;
+        margin: auto;
+        background: var(--base);
+        min-height: 100vh;
+        width: 65ch;
+        max-width: 100%;
+      }
+
+      a {
+        color: var(--text);
+        text-decoration: none;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      svg {
+        color: #eba0ac;
+        width: 65ch;
+        max-width: 80vw;
+      }
+
+      li {
+        height: 2rem;
+      }
+
+      li::before {
+        content: attr(seq);
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 1.5rem;
+        height: 1.5rem;
+        background: var(--accent);
+        color: var(--base);
+        border-radius: 0.5rem;
+      }
+
+      blockquote {
+        margin-bottom: 2rem;
+
+        &::before {
+          content: "> ";
+          color: var(--accent);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- this is for the bots ig -->
+    <!-- just didn't have the time to make it properly -->
+    <span style="filter: opacity(0); user-select: none; height: 0"
+      >Not found</span
+    >
+
+    <main>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="lucide lucide-circle-x-icon lucide-circle-x"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="m15 9-6 6" />
+        <path d="m9 9 6 6" />
+      </svg>
+
+      <h1>Not Found</h1>
+
+      <p>The page either got moved or never existed in the first place</p>
+    </main>
+
+    <h2>
+      <a href="/"> LAB </a>
+    </h2>
+  </body>
+</html>
