@@ -1,0 +1,58 @@
+html {
+  background: var(--base);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  background: var(--base);
+  min-height: 100vh;
+  width: fit-content;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+ol {
+  margin: 1.5rem 0;
+  padding: 0;
+  width: 70ch;
+  min-width: 0;
+  list-style: none;
+}
+
+li {
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+li > svg {
+  box-sizing: border-box;
+  min-width: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0.25rem;
+  background: var(--accent);
+  color: var(--base);
+  border-radius: 0.5rem;
+}
+
+.button {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: var(--mantle);
+  margin: 1rem 0;
+  text-decoration: none;
+}
+
+.lesson {
+  padding: 0;
+}

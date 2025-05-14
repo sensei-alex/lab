@@ -1,0 +1,68 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAB</title>
+    <link rel="stylesheet" href="/common.css" />
+    <link rel="stylesheet" href="/non-interactive.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <main class="lesson">
+      <h1>Setting up the computer</h1>
+
+      <img id="sketch" class="sketch" src="/img/pysetup.svg" alt="sketch" />
+
+      <ol>
+        <li>
+          <i data-lucide="download"></i>
+          <a id="pythonLink" href="https://python.org">Download Python</a>
+        </li>
+        <li>
+          <i data-lucide="package"></i>
+          <span id="installIt">
+            Install it
+            <em id="windowsPath" style="display: none;">(check "Add To Path" on the first screen)</em>
+          </span>
+        </li>
+        <li>
+          <i data-lucide="square-terminal"></i>
+          <span>
+            Open a terminal by searching for it in
+            <span id="appSearch">Launchpad ᎒᎒᎒</span>
+          </span>
+        </li>
+        <li>
+          <i data-lucide="microchip"></i>
+          <span>Paste <span id="pasteInstruction"></span> and hit Enter. This will help us install Python on the board</span>
+        </li>
+      </ol>
+
+      <a class="button" href="/en/flash.html">
+        <span>Next</span>
+        <i data-lucide="circle-arrow-right"></i>
+      </a>
+    </main>
+
+    <script>
+      lucide.createIcons()
+
+      if (navigator.platform.startsWith("Win")) {
+        windowsPath.style.display = "inline";
+        pythonLink.href = "https://www.python.org/ftp/python/3.13.3/python-3.13.3-amd64.exe";
+        appSearch.textContent = "the Start menu";
+        pasteInstruction.textContent = "by right-clicking the terminal"
+      } else if (navigator.platform.startsWith("Mac")) {
+        pythonLink.href = "https://www.python.org/ftp/python/3.13.3/python-3.13.3-macos11.pkg";
+        pasteInstruction.textContent = "by pressing Cmd+V"
+      } else {
+        pythonLink.parentElement.style.display = "None";
+        installIt.textContent = "Install Python";
+        appSearch.textContent = "the app launcher";
+        pasteInstruction.textContent = "by pressing Ctrl+Shift+V"
+      }
+    </script>
+  </body>
+</html>
