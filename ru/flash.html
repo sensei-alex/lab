@@ -1,0 +1,84 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LAB</title>
+    <link rel="stylesheet" href="/common.css" />
+    <link rel="stylesheet" href="/non-interactive.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="/uart.js"></script>
+  </head>
+  <body>
+    <main class="lesson">
+      <h1>Настройка платы</h1>
+
+      <img id="sketch" class="sketch" src="/img/flash.ru.svg" alt="sketch" />
+
+      <ol>
+        <li>
+          <i data-lucide="pointer"></i>
+          <span
+            >Зажмите кнопку boot (на плате подписана как <code>0</code>)</span
+          >
+        </li>
+        <li>
+          <i data-lucide="cable"></i>
+          <span>Подключите плату к компьютеру</span>
+        </li>
+        <li>
+          <i data-lucide="power"></i>
+          <span>Отпустите кнопку boot</span>
+        </li>
+        <li>
+          <i data-lucide="link"></i>
+          <span
+            >Нажмите <button class="link" id="connect">Подключить</button> и выберите устройство</span>
+        </li>
+        <li>
+          <i data-lucide="pencil"></i>
+          <span>Оно будет называться вроде: ESP32-S2 (<em>порт</em>)</span>
+        </li>
+        <li id="lastInstruction">
+          <i data-lucide="notebook-pen"></i>
+          <span
+            >Впишите этот порт
+            <input id="portName" placeholder="сюда" /><br />(включая заглавные / строчные буквы) и нажмите Enter</span
+          >
+        </li>
+      </ol>
+
+      <a class="button" href="/ru/construction">
+        <span>Дальше</span>
+        <i data-lucide="circle-arrow-right"></i>
+      </a>
+    </main>
+
+    <script>
+      lucide.createIcons();
+
+      connect.addEventListener("click", pickSerialPort);
+      portName.addEventListener("change", () => {
+        if (!navigator.platform.startsWith("Win")) {
+          portName.value = "/dev/" + portName.value;
+        }
+
+        const firmware = "adafruit-circuitpython-lolin_s2_mini-en_GB-9.2.7.bin";
+        const download = "wget https://lab.snlx.net/lib/firmware/" + firmware; // not directly from Adafruit because they return a 403
+        const flash =
+          "esptool.py --chip esp32s2 --port " +
+          portName.value +
+          "  --baud 1000000 write_flash -z 0x0 " +
+          firmware;
+
+        navigator.clipboard.writeText(`${download} && ${flash}`);
+
+        lastInstruction.innerHTML =
+          '<i data-lucide="zap" style="background: var(--yellow);"></i><span>Вставьте следующую инструкцию в терминал и нажмите Enter</span>';
+
+        lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>

@@ -7,7 +7,7 @@ const CONTROL_D = String.fromCharCode(4);
 async function pickSerialPort() {
   if (!("serial" in navigator)) {
     alert(
-      "Please use a chromium-based browser (e.g., brave, edge, vidaldi, chrome, etc.)",
+      "Please use a desktop chromium-based browser (e.g., brave, edge, vidaldi, chrome, etc.)",
     );
     return;
   }

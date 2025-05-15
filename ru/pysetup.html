@@ -11,42 +11,40 @@
   </head>
   <body>
     <main class="lesson">
-      <h1>Setting up the computer</h1>
+      <h1>Настройка компьютера</h1>
 
-      <img id="sketch" class="sketch" src="/img/pysetup.svg" alt="sketch" />
+      <img id="sketch" class="sketch" src="/img/pysetup.ru.svg" alt="sketch" />
 
       <ol>
         <li>
           <i data-lucide="download"></i>
-          <a id="pythonLink" href="https://python.org">Download Python</a>
+          <a id="pythonLink" href="https://python.org">Скачайте Python</a>
         </li>
         <li>
           <i data-lucide="package"></i>
           <span id="installIt">
-            Install it
+            Установите его
             <em id="windowsPath" style="display: none"
-              >(check "Add To Path" on the first screen)</em
+              >(отметьте галочку "Add To Path" или "Добавить в Путь" на первом экране установщика)</em
             >
           </span>
         </li>
         <li>
           <i data-lucide="square-terminal"></i>
           <span>
-            Open a terminal by searching for it in
+            Откройте терминал. Его можно найти в
             <span id="appSearch">Launchpad ᎒᎒᎒</span>
           </span>
         </li>
         <li>
           <i data-lucide="microchip"></i>
           <span
-            >Paste <span id="pasteInstruction"></span> and hit Enter. This will
-            help us install Python on the board in the next step</span
-          >
+            >Вставьте команду, <span id="pasteInstruction"></span>, потом Enter. Это поможет установить Python на плату в селдующем шаге.</span>
         </li>
       </ol>
 
-      <a class="button" href="/en/flash.html">
-        <span>Next</span>
+      <a class="button" href="/ru/flash.html">
+        <span>Дальше</span>
         <i data-lucide="circle-arrow-right"></i>
       </a>
     </main>
@@ -60,17 +58,17 @@
         windowsPath.style.display = "inline";
         pythonLink.href =
           "https://www.python.org/ftp/python/3.13.3/python-3.13.3-amd64.exe";
-        appSearch.textContent = "the Start menu";
-        pasteInstruction.textContent = "by right-clicking the terminal";
+        appSearch.textContent = "меню Пуск";
+        pasteInstruction.textContent = "нажав правой кнопком мыши на терминал";
       } else if (navigator.platform.startsWith("Mac")) {
         pythonLink.href =
           "https://www.python.org/ftp/python/3.13.3/python-3.13.3-macos11.pkg";
-        pasteInstruction.textContent = "by pressing Cmd+V";
+        pasteInstruction.textContent = "нажав Cmd+V";
       } else {
         pythonLink.parentElement.style.display = "None";
-        installIt.textContent = "Install Python";
-        appSearch.textContent = "the app launcher";
-        pasteInstruction.textContent = "by pressing Ctrl+Shift+V";
+        installIt.textContent = "Установите Python";
+        appSearch.textContent = "меню приложений";
+        pasteInstruction.textContent = "нажав Ctrl+Shift+V";
       }
     </script>
   </body>
