@@ -1,3 +1,6 @@
+const ESPRESSIF_VENDOR_ID = 0x303a;
+const RASPBERRY_VENDOR_ID = 0x2e8a;
+
 const ENTER_KEY = String.fromCharCode(13);
 const CONTROL_D = String.fromCharCode(4);
 
@@ -19,9 +22,7 @@ async function pickSerialPort() {
     .catch(() => null);
 
   if (!port) {
-    alert(
-      "Can't establish the connection. Please reload the page to try again",
-    );
+    console.log("Port selection cancelled");
     return;
   }
 

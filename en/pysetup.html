@@ -24,7 +24,9 @@
           <i data-lucide="package"></i>
           <span id="installIt">
             Install it
-            <em id="windowsPath" style="display: none;">(check "Add To Path" on the first screen)</em>
+            <em id="windowsPath" style="display: none"
+              >(check "Add To Path" on the first screen)</em
+            >
           </span>
         </li>
         <li>
@@ -36,7 +38,10 @@
         </li>
         <li>
           <i data-lucide="microchip"></i>
-          <span>Paste <span id="pasteInstruction"></span> and hit Enter. This will help us install Python on the board</span>
+          <span
+            >Paste <span id="pasteInstruction"></span> and hit Enter. This will
+            help us install Python on the board</span
+          >
         </li>
       </ol>
 
@@ -47,21 +52,25 @@
     </main>
 
     <script>
-      lucide.createIcons()
+      lucide.createIcons();
+
+      navigator.clipboard.writeText("pip3 install esptool");
 
       if (navigator.platform.startsWith("Win")) {
         windowsPath.style.display = "inline";
-        pythonLink.href = "https://www.python.org/ftp/python/3.13.3/python-3.13.3-amd64.exe";
+        pythonLink.href =
+          "https://www.python.org/ftp/python/3.13.3/python-3.13.3-amd64.exe";
         appSearch.textContent = "the Start menu";
-        pasteInstruction.textContent = "by right-clicking the terminal"
+        pasteInstruction.textContent = "by right-clicking the terminal";
       } else if (navigator.platform.startsWith("Mac")) {
-        pythonLink.href = "https://www.python.org/ftp/python/3.13.3/python-3.13.3-macos11.pkg";
-        pasteInstruction.textContent = "by pressing Cmd+V"
+        pythonLink.href =
+          "https://www.python.org/ftp/python/3.13.3/python-3.13.3-macos11.pkg";
+        pasteInstruction.textContent = "by pressing Cmd+V";
       } else {
         pythonLink.parentElement.style.display = "None";
         installIt.textContent = "Install Python";
         appSearch.textContent = "the app launcher";
-        pasteInstruction.textContent = "by pressing Ctrl+Shift+V"
+        pasteInstruction.textContent = "by pressing Ctrl+Shift+V";
       }
     </script>
   </body>

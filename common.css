@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: "JetBrainsMono Nerd Font";
   font-style: normal;
   font-display: swap;
   font-weight: 100 800;
@@ -11,7 +11,7 @@
 }
 
 @font-face {
-  font-family: "JetBrains Mono";
+  font-family: "JetBrainsMono Nerd Font";
   font-style: normal;
   font-display: swap;
   font-weight: 100 800;
@@ -30,6 +30,7 @@
   --mantle: #181825;
   --crust: #11111b;
   --accent: #94e2d5;
+  --yellow: #f9e2af;
   --heading: #b4befe;
   --text: #cdd6f4;
 }
@@ -39,14 +40,35 @@ body {
   background: var(--crust);
   color: var(--text);
   font-size: 16px;
-  font-family: "JetBrains Mono", monospace;
+  font-family: "JetBrainsMono Nerd Font", monospace;
 }
+.link,
 a {
   color: var(--accent);
+  text-decoration: underline;
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+}
+.link:hover,
+a:hover {
+  cursor: pointer;
 }
 ::selection {
   color: var(--base);
   background: var(--accent);
+}
+
+input {
+  color: var(--accent);
+  border: none;
+  background: transparent;
+  border: 2px solid var(--crust);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-size: inherit;
+  outline: none;
 }
 
 .button {

@@ -1,6 +1,3 @@
-const ESPRESSIF_VENDOR_ID = 0x303a;
-const RASPBERRY_VENDOR_ID = 0x2e8a;
-
 const ui = {
   editor: document.getElementById("editor"),
   runner: document.getElementById("runner"),
