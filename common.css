@@ -31,6 +31,9 @@
   --crust: #11111b;
   --accent: #94e2d5;
   --yellow: #f9e2af;
+  --vim-insert: #a6e3a1;
+  --vim-normal: #b4befe;
+  --vim-visual: #f5e0dc;
   --heading: #b4befe;
   --text: #cdd6f4;
 }
@@ -62,7 +65,6 @@ a:hover {
 
 input {
   color: var(--accent);
-  border: none;
   background: transparent;
   border: 2px solid var(--crust);
   border-radius: 0.5rem;

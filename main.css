@@ -65,3 +65,16 @@ body {
   align-items: center;
   gap: 0.5rem;
 }
+
+.vim-mode {
+  box-sizing: border-box;
+  min-width: 128px;
+  height: 64px;
+  padding: 1rem;
+  background: var(--base);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--crust);
+  border-radius: 0.5rem;
+}
