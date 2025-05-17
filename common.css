@@ -107,13 +107,13 @@ input {
     max-width: 70ch;
   }
 
-  & h1 {
-    margin-top: 0;
-  }
-
   & h1,
   & h2 {
     color: var(--heading);
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   & em {

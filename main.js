@@ -22,8 +22,10 @@ async function main() {
 
   setupEditor("text/x-python");
 
-  await setupWifiRunner();
-  editor.setValue(await runner.load(filename));
+  setTimeout(async () => {
+    setupWifiRunner();
+    editor.setValue(await runner.load(filename));
+  }, 0);
 }
 
 function setupEditor(language) {
@@ -46,8 +48,8 @@ function getParams() {
   const params = new URLSearchParams(window.location.search);
 
   return {
-    project: params.get("project") || "0",
-    task: params.get("task") || "",
+    project: +params.get("project") || 0,
+    task: +params.get("task") || 0,
     lang: params.get("lang") || "en",
   };
 }
@@ -65,11 +67,12 @@ async function getProject(props) {
 
   const sketch = document.createElement("img");
   sketch.src = "https://lab.snlx.net/img/" + task.sketch[lang];
+  sketch.classList.add("sketch");
   ui.lesson.prepend(sketch);
 
   const title = document.createElement("h2");
   title.textContent = task.name[lang];
   ui.lesson.prepend(title);
 
-  document.title = "LAB / " + data.name[lang];
+  document.title = "LAB / " + project.name[lang];
 }
