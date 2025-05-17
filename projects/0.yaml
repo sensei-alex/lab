@@ -27,10 +27,10 @@ tasks:
 
         Нажмите на кнопку далее (в правом нижнем углу), чтобы продолжить
 
-    editor:
-      file: code.py
-      text: ""
+    sketch:
+      en: programming-languages.svg
+      ru: programming-languages.ru.svg
 
     runner:
-      type: none # planned: flasher,uart,webserial,iframe
+      type: none # planned: wifi,ssh,iframe
 
