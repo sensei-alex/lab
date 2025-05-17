@@ -5,6 +5,8 @@ const ui = {
   projectName: document.getElementById("project-name"),
   taskId: document.getElementById("task-id"),
   runner: document.getElementById("runner"),
+  nextTask: document.getElementById("next-task"),
+  prevTask: document.getElementById("prev-task"),
 };
 
 let filename = "code.py";
@@ -19,6 +21,16 @@ main();
 async function main() {
   const params = getParams();
   const lesson = await getProject(params);
+
+  ui.prevTask.addEventListener("click", async () => {
+    params.task -= 1;
+    await getProject(params);
+  })
+
+  ui.nextTask.addEventListener("click", async () => {
+    params.task += 1;
+    await getProject(params);
+  })
 
   setupEditor("text/x-python");
 
