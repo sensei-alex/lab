@@ -1,39 +1,279 @@
 ---
 module: hardware
 name:
-  en: (Project Name)
-  ru: (Название Проекта)
+  en: Relay Timer
+  ru: Реле Времени
 
 tasks:
   - name:
-      en: Example task
-      ru: Пример задачи
+      en: The board
+      ru: Плата
     lesson:
       en: |
-        Welcome to LAB - a hands-on programming course for beginners!
+        The purple board (wemos s2 mini) is a small, underpowered computer, like the one used in your microwave or fridge. Please unplug it.
 
-        A quick UI overview:
-        - this window is for the task
-        - the middle window is the editor
-        - the buttons below the editor run / save / show a clue
-        - and the right window is a preview
+        Plug the pins that came with the wemos board into the breadboard's rows labeled `b` and `i` and put the board on top. Solder the pins.
 
-        Click the next button (in the bottom right) to continue!
+        The *breadboard* is used to connect multiple wires together without soldering. *Each column acts like a wire.* The top & bottom two rows are for connecting power, hook them up to the columns that are connected to wemos's VBUS & GND pins like shown.
+
+        Match the wire colors to their purpose if you can. Ground is always either black or blue, power is red, any other color is signal.
+
+        Connect the board to your computer with a USB cable and press `Connect` on the right.
       ru: |
-        Добро пожаловать в LAB - практический курс программирования для начинающих!
-
-        Коротко об интерфейсе:
-        - это окно задачи
-        - центральное окно - редактор
-        - кнопки под редактором запускают / сохраняют / показывают подсказку
-        - окно справа - предпросмотр
-
-        Нажмите на кнопку далее (в правом нижнем углу), чтобы продолжить
-
+        будет позже
     sketch:
-      en: programming-languages.svg
-      ru: programming-languages.ru.svg
+      en: board.svg
+      ru: board.ru.svg
 
-    runner:
-      type: none # planned: wifi,ssh,iframe
+  - name:
+      en: I/O Functions
+      ru: Функции ввода/вывода
+    lesson:
+      en: |
+        Type in `print("Hello, world.")` into the *console* on the right and press enter. The enter key makes the board execute your command.
 
+        A function is a *command* that *takes some arguments* wrapped in brackets, *does* something, and *returns a value*. `print` takes 1 input, writes it to the screen, and returns nothing. The argument you gave it was `"Hello, world."`. I'll explain the quotes shortly.
+
+        Now try running print with any other piece of text, say, `"Waiting for commands"` or just `"> "`.
+
+        Another function built into the language is `input`. It
+        - takes *one argument*
+        - *prints* it
+        - *waits* for the user to *type* something and *press enter*
+        - and *returns* whatever the user *typed*.
+      ru: |
+        будет позже
+    sketch:
+      en: functions.svg
+      ru: functions.ru.svg
+
+  - name:
+      en: Variables
+      ru: Переменные
+    lesson:
+      en: |
+        A variable is a *place in* computer's *memory*. It has a *name and a value*.
+
+        Names can contain *letters a through z*, numbers and underscores. They can't start with a number. The name should be a *short description* of the data stored, like in the examples above. If the name consists of multiple words, use underscores instead of spaces.
+
+        Values can be
+        - *literals* (like `"text"` or `64.5`)
+        - function *return values* (like `input("> ")`)
+            - the function gets called (ran) first,
+            - then the return value is written to the variable
+        - *expressions* (like `2 + 2` or `2 - another_variable`)
+        - a *mix* of the above
+
+        You can set a variable (`name = value`) or get its value (just `name`, it will get replaced with the `value` when the code runs).
+
+        Ask the user if they want to turn on the LED and save their response to a variable called `led_value`. If you're stuck, press the help button below.
+      ru: |
+        будет позже
+    sketch:
+      en: variables.svg
+      ru: variables.ru.svg
+
+  - name:
+      en: Data types
+      ru: Типы данных
+    lesson:
+      en: |
+        All values have a *type*, like a string (`str`) or an integer (`int`).
+
+        The quotes we used were there to specify that the values were `str`ings (pieces of text).
+
+        The *input* function *always* returns *`str`ings*. Doing math with its output results in an error, try `result = input("> ") + 1` and entering a number.
+
+        We can *convert* the output *into a different type*. For example, to turn a number into a string, you would use `str(16)`. The reverse looks like `int("32")`. String to bool is `bool("True")`.
+
+        *Arithmetic* operators *work differently* with different types. Try adding together two *strings* (e.g., `"hello" + "world"`) and two *integers* (`10 + 32`).
+
+        Each command is executed from the inside:
+        with `str(input("How old are you?"))`:
+        - The inner function (`input("How old are you?")`) runs first
+        - The returned value goes through `str` and gets converted.
+
+        Use the card above to *make* `result = input("> ") + 1` actually *work*.
+      ru: |
+        будет позже
+    sketch:
+      en: data-types.svg
+      ru: data-types.ru.svg
+
+  - name:
+      en: Libraries
+      ru: Библиотеки
+    lesson:
+      en: |
+        A library is a *group of functions, variables & data types* with a *common purpose*. There are libraries for using the internet, making telegram bots, interacting with your computer, etc.
+
+        You have to *import* a library before you use it. Try `import board`.
+
+        To access things *inside* a library you use `library_name.variable` or `library_name.function(...)`.
+
+        Type `board.` and press the `tab` key (left of `Q`) instead of `enter` to *explore* the contents of that library.
+
+        Run `print(board.board_id)` to get the board's name, it should say `lolin_s2_mini`.
+
+        Import `digitalio` as well, we'll need it in the next task.
+      ru: |
+        будет позже
+    sketch:
+      en: none.svg
+      ru: none.ru.svg
+
+  - name:
+      en: Blinking the LED
+      ru: Моргаем светодиодом
+    lesson:
+      en: |
+        Now to why we need them:
+        - `board` to list the physical inputs / outputs
+        - `digitalio` to control them
+
+        The onboard LED is connected to a *pin* (a contact) on the chip.
+
+        Run the `DigitalInOut` function from the `digitalio` library (`digitalio.DigitalInOut`)
+        - it takes one argument, the pin address (`board.LED` in this case)
+        - and returns a controllable pin. Save it to a variable.
+
+        Pins have a direction (`the_variable_you_created.direction`), it can be:
+        - `digitalio.Direction.INPUT`, or
+        - `digitalio.Direction.OUTPUT`
+
+        We want to *control* the LED, not read its state, so set it to `digitalio.Direction.OUTPUT`.
+
+        Set the `value` of the pin (`the_variable_you_created.value`) to `True` to turn it on!
+      ru: |
+        будет позже
+    sketch:
+      en: digitalio.svg
+      ru: digitalio.ru.svg
+
+  - name:
+      en: The Editor
+      ru: Редактор
+    lesson:
+      en: |
+        The editor you have in the middle of the screen is called *vim*. Vim is a modal editor, meaning that *keys* on your keyboard *act differently* depending on the *mode* that the editor is in. The mode is shown at the bottom of the screen.
+
+        The default mode is called *normal*, it is very handy for editing. We'll explore that in later projects.
+
+        In normal mode, each key is associated with a command. Right now we want to write a program here, so we need to *insert* characters instead of treating them as commands. The editor has a mode for that, it is called *insert mode*, and you can enter it using by pressing the `i` key. From here it works like any other editor would.
+
+        Write the two `import` statements we had and press enter twice to create an empty line between them and the next piece of code. Always *leave an empty line between pieces of logic that do different things*. This helps readability, just like the self-explanatory variable names.
+
+        Finish the program for turing the LED on.
+
+        Press the escape key (top left of the keyboard) to return to normal mode. Press `:` to enter the menu for more complex commands, type `write` to save the file (write it to disk) and hit enter.
+
+        You should see your LED go dark and the terminal print a few things before concluding with `code done running`.
+      ru: |
+        будет позже
+    sketch:
+      en: none.svg
+      ru: none.ru.svg
+
+  - name:
+      en: While loop
+      ru: Цикл While
+    lesson:
+      en: |
+        So you told the LED to turn on, and it went dark. Why?
+
+        When you were sending individual commands through the console, the board ran them and waited for the next one. When you write a program in advance, *there is nothing to wait for*. The board runs every line one after the other and stops, resetting all outputs to `False`.
+
+        To prevent that, you have to keep feeding it commands. This is usually done by putting an *infinite while loop* at the end of your program.
+
+        A *while loop* is a block of code that re-runs on a certain *condition*. A condition is an expression that turns into a `bool` value when ran. If the value is `True`, the loop runs again. If it is `False`, the loop ends and the next line in the program is executed.
+
+        The first line of a while loop is `while your_expression:`. In our case we want it to repeat forever, so we can use `while 0 < 1:` or `while 2 + 2 < 5:` or just `while True:`. Reminder: you need to press `i` to insert characters instead of executing them as commands.
+
+        When you press enter, you'll see that the next line has 4 spaces in front. This is normal and called *indentation*. You indent code 2 reasons:
+        1. it makes the thing easier to read. The reader knows that indented code is *inside* something (e.g., a loop). It's visually obvious when the loop ends
+        2. python relies on the column and indentation to know the same thing
+
+        Try putting a `print("waiting")` in the loop and save the file with `esc` followed by `:write`
+      ru: |
+        будет позже
+    sketch:
+      en: while.svg
+      ru: while.ru.svg
+
+  - name:
+      en: Waiting
+      ru: Ждём
+    lesson:
+      en: |
+        Printing the same message over and over again forever is not ideal. We can just wait instead. There are a few ways to do that in Python.
+
+        If you want to *stop for a specific time*, you can use the `sleep` function from the `time` library. It takes an amount of *seconds*, stops for that long, and returns nothing.
+
+        If you don't have a specific time, there is the `pass` keyword. It is literally an instruction that does nothing. This thing is most commonly used as either a placeholder for not yet written code, or as a "stop" inside an infinite loop.
+
+        Replace the `print` command with a `pass`.
+      ru: |
+        будет позже
+    sketch:
+      en: waiting.svg
+      ru: waiting.ru.svg
+
+  - name:
+      en: Relay
+      ru: Реле
+    lesson:
+      en: |
+        The LED is cool and all, but let's connect a real load now.
+
+        Take a relay, connect power and ground. Wire relay's IN1 to the board's pin 16 and IN2 to pin 18.
+
+        Change `board.LED` to `board.IO16`. Rename the variable if you called it `led` and save the file.
+
+        The relay should click on. If it didn't, change `True` to `False` (some modules are inverted).
+      ru: |
+        будет позже
+    sketch:
+      en: relay.svg
+      ru: relay.ru.svg
+
+  - name:
+      en: Relay Timer
+      ru: Реле времени
+    lesson:
+      en: |
+        Now create a `run_time` variable and a `wait_time` variable.
+
+        Go to the beginning of the file by pressing `gg` in normal mode and create a new line by pressing `o`. Import `time`.
+
+        - Move the `your_relay_variable.value = True` (or `False`) into the loop
+        - pause for `run_time` seconds
+        - then turn off the relay
+        - pause for `wait_time` seconds
+        - remove the `pass` as we now have other instructions in the loop
+
+        The example in the card above will turn on the relay for 5 minutes of every hour. You can tune that to anything you like. I just removed the `* 60`.
+
+        We now have an electronic switch that runs on a schedule, why could we need that?
+      ru: |
+        будет позже
+    sketch:
+      en: relay-timer.svg
+      ru: relay-timer.ru.svg
+
+  - name:
+      en: Practical Applications
+      ru: Реальные применения
+    lesson:
+      en: |
+        - plant watering
+        - growlights
+        - alarm clocks
+        - a device that reboots the load every day
+      ru: |
+        - полив растений
+        - свет для растений
+        - будильники
+        - устройство, которое перезагружает нагрузку каждый день
+    sketch:
+      en: none.svg
+      ru: none.ru.svg
