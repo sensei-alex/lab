@@ -81,7 +81,7 @@ async function setupWifiRunner() {
     return response.text();
   };
 
-  const ws = new WebSocket("ws://" + ip + "/cp/serial/");
+  const ws = new WebSocket("ws://:hunter2@" + ip + "/cp/serial/");
 
   ws.onopen = function () {
     console.log("open");
