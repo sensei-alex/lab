@@ -13,8 +13,11 @@ const runner = {
 };
 
 main();
-function main() {
+async function main() {
   setupEditor("text/x-python");
+
+  await setupWifiRunner();
+  editor.setValue(await runner.load(filename));
 }
 
 function setupEditor(language) {
@@ -28,7 +31,7 @@ function setupEditor(language) {
 
     ui.modeIndicator.textContent = (mode + subModePretty).toUpperCase();
     ui.modeIndicator.style.color = "var(--vim-" + mode + ")";
-  })
+  });
 
-  CodeMirror.commands.save = () => runner.save(filename, editor.getValue())
+  CodeMirror.commands.save = () => runner.save(filename, editor.getValue());
 }

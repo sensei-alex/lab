@@ -31,7 +31,7 @@ async function setupUartRunner() {
     });
   };
 
-  runner.load = async (filename, text) => {
+  runner.load = async (filename) => {
     const fileHandle = await root.getFileHandle(filename);
     const file = await fileHandle.getFile();
 
@@ -49,12 +49,29 @@ async function setupUartRunner() {
 }
 
 async function setupWifiRunner() {
-  const ip = prompt("Please enter the board's IP address");
-  const response = await fetch("http://" + ip + "/fs/code.py", {
-    headers: {
-      Authorization: "Basic " + btoa(":hunter2"),
-    },
-  });
+  const ip = prompt("What's the IP address of the board?");
 
-  console.log(response.text());
+  runner.type = "wifi";
+
+  runner.load = async (filename) => {
+    const response = await fetch("http://" + ip + "/fs/" + filename, {
+      headers: {
+        Authorization: "Basic " + btoa(":hunter2"),
+      },
+    });
+
+    return response.text();
+  };
+
+  runner.save = async (filename, text) => {
+    const response = await fetch("http://" + ip + "/fs/" + filename, {
+      method: "PUT",
+      headers: {
+        Authorization: "Basic " + btoa(":hunter2"),
+      },
+      body: text,
+    });
+
+    return response.text();
+  };
 }
