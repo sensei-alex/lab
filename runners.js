@@ -50,7 +50,7 @@ async function setupUartRunner() {
 
 async function setupWifiRunner() {
   const ip = prompt("Please enter the board's IP address");
-  const response = fetch("http://" + ip + "/fs/code.py", {
+  const response = await fetch("http://" + ip + "/fs/code.py", {
     headers: {
       Authorization: "Basic " + btoa(":hunter2"),
     },
