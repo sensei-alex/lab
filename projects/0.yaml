@@ -5,7 +5,10 @@ name:
   ru: (Название Проекта)
 
 tasks:
-  - lesson:
+  - name:
+      en: Example task
+      ru: Пример задачи
+    lesson:
       en: |
         Welcome to LAB - a hands-on programming course for beginners!
 

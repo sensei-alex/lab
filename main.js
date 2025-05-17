@@ -51,20 +51,23 @@ function getParams() {
   };
 }
 
-async function getProject({ project, task, lang }) {
+async function getProject(props) {
   const response = await fetch(
-    "https://lab.snlx.net/projects/" + project + ".yaml",
+    "https://lab.snlx.net/projects/" + props.project + ".yaml",
   );
-  const data = jsyaml.load(await response.text());
+  const project = jsyaml.load(await response.text());
 
-  ui.lesson.innerHTML = marked.parse(data.lesson[lang]);
+  const lang = props.lang;
+  const task = project.tasks[props.task];
+
+  ui.lesson.innerHTML = marked.parse(task.lesson[lang]);
 
   const sketch = document.createElement("img");
-  sketch.src = "https://lab.snlx.net/img/" + data.sketch[lang];
+  sketch.src = "https://lab.snlx.net/img/" + task.sketch[lang];
   ui.lesson.prepend(sketch);
 
   const title = document.createElement("h1");
-  title.textContent = data.name[lang];
+  title.textContent = task.name[lang];
   ui.lesson.prepend(title);
 
   document.title = "LAB / " + data.name[lang];
