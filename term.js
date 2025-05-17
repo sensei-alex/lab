@@ -1,4 +1,6 @@
 function configureTerminal() {
+  ui.runner.innerHTML = "";
+
   const terminal = new Terminal({
     fontFamily: '"JetBrains Mono", monospace',
     fontSize: 16,
