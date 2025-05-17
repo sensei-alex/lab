@@ -32,16 +32,29 @@ async function setupUartRunner() {
   };
 
   runner.load = async (filename, text) => {
-    const fileHandle = await root.getFileHandle(filename)
-    const file = await fileHandle.getFile()
+    const fileHandle = await root.getFileHandle(filename);
+    const file = await fileHandle.getFile();
 
-    return file.text()
-  }
+    return file.text();
+  };
 
   runner.save = async (filename, text) => {
-    const fileHandle = await root.getFileHandle(filename, { mode: "readwrite" })
-    const writable = await fileHandle.createWritable({mode: "exclusive"});
+    const fileHandle = await root.getFileHandle(filename, {
+      mode: "readwrite",
+    });
+    const writable = await fileHandle.createWritable({ mode: "exclusive" });
 
     await writable.write(text).then(() => writable.close());
-  }
+  };
+}
+
+async function setupWifiRunner() {
+  const ip = prompt("Please enter the board's IP address");
+  const response = fetch("http://" + ip + "/fs/code.py", {
+    headers: {
+      Authorization: "Basic " + btoa(":hunter2"),
+    },
+  });
+
+  console.log(response.text());
 }
