@@ -63,3 +63,9 @@ async function configureUartConnection() {
 
   return { write, onData };
 }
+
+async function pickDirectory() {
+  return showDirectoryPicker({
+    mode: "readwrite",
+  });
+}

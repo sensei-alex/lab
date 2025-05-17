@@ -5,6 +5,7 @@ async function setupUartRunner() {
 
   const term = configureTerminal();
   const uart = await configureUartConnection();
+  const root = await pickDirectory();
 
   term.fit();
   uart.write(String.fromCharCode(4)); // reset using CTRL+D
@@ -29,4 +30,18 @@ async function setupUartRunner() {
       resolveLastCommand = resolve;
     });
   };
+
+  runner.load = async (filename, text) => {
+    const fileHandle = await root.getFileHandle(filename)
+    const file = await fileHandle.getFile()
+
+    return file.text()
+  }
+
+  runner.save = async (filename, text) => {
+    const fileHandle = await root.getFileHandle(filename, { mode: "readwrite" })
+    const writable = await fileHandle.createWritable({mode: "exclusive"});
+
+    await writable.write(text).then(() => writable.close());
+  }
 }
