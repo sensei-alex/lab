@@ -1,8 +1,9 @@
 const ui = {
+  lesson: document.getElementById("lesson"),
   editor: document.getElementById("editor"),
   modeIndicator: document.getElementById("vim-mode"),
-  projectName: document.getElementById(""),
-  taskId: document.getElementById(""),
+  projectName: document.getElementById("project-name"),
+  taskId: document.getElementById("task-id"),
   runner: document.getElementById("runner"),
 };
 
@@ -66,7 +67,7 @@ async function getProject(props) {
   sketch.src = "https://lab.snlx.net/img/" + task.sketch[lang];
   ui.lesson.prepend(sketch);
 
-  const title = document.createElement("h1");
+  const title = document.createElement("h2");
   title.textContent = task.name[lang];
   ui.lesson.prepend(title);
 
