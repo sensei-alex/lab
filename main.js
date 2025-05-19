@@ -25,12 +25,12 @@ async function main() {
   ui.prevTask.addEventListener("click", async () => {
     params.task -= 1;
     await getProject(params);
-  })
+  });
 
   ui.nextTask.addEventListener("click", async () => {
     params.task += 1;
     await getProject(params);
-  })
+  });
 
   setupEditor("text/x-python");
 
@@ -77,8 +77,15 @@ async function getProject(props) {
 
   ui.lesson.innerHTML = marked.parse(task.lesson[lang]);
 
-  const sketch = document.createElement("img");
-  sketch.src = "https://lab.snlx.net/img/" + task.sketch[lang];
+  const parser = new DOMParser();
+  const svg = await fetch("https://lab.snlx.net/img/" + task.sketch[lang]).then(
+    (res) => res.text(),
+  );
+  const sketch = parser
+    .parseFromString(svg, "image/svg+xml")
+    .querySelector("svg");
+  sketch.removeAttribute("width");
+  sketch.removeAttribute("height");
   sketch.classList.add("sketch");
   ui.lesson.prepend(sketch);
 
