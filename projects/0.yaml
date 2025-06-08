@@ -18,9 +18,17 @@ tasks:
 
         Match the wire colors to their purpose if you can. Ground is always either black or blue, power is red, any other color is signal.
 
-        Connect the board to your computer with a USB cable and press `Connect` on the right.
+        (instructions on how to connect to the board coming eventually)
       ru: |
-        будет позже
+        Wemos S2 Mini (фиолетовая плата) - маленький маломощный компьютер (вроде того, который стоит у Вас в микроволновке). Пожалуйста, отключите его от USB.
+
+        Воткните ножки, которые пришли с этой платой в линии `b` и `i` на макетке. Припаяйте их к плате.
+
+        *Макетная плата* используется для соединения нескольких проводов между собой без пайки. *Каждая колонка макетки является проводником.* 2 верхние и нижние линии - питание и земля, подключаются к пинам VBUS и GND на контроллере (как показано на картинке выше).
+
+        Если это возможно, подбирайте цвет провода соответственно его назначению. Земля всегда или чёрная, или синяя, плюс всегда красный, любой другой цвет - сигнал.
+
+        (инструкции по подключению добавлю когда-нибудь)
     sketch:
       en: board.svg
       ru: board.ru.svg
@@ -32,7 +40,7 @@ tasks:
       en: |
         Type in `print("Hello, world.")` into the *console* on the right and press enter. The enter key makes the board execute your command.
 
-        A function is a *command* that *takes some arguments* wrapped in brackets, *does* something, and *returns a value*. `print` takes 1 input, writes it to the screen, and returns nothing. The argument you gave it was `"Hello, world."`. I'll explain the quotes shortly.
+        A function is a *command* that *takes some arguments* wrapped in brackets, *does* something, and *returns a value*. `print` takes 1 input, writes it to the console, and returns an empty value. The argument you gave it was `"Hello, world."`. I'll explain the quotes shortly.
 
         Now try running print with any other piece of text, say, `"Waiting for commands"` or just `"> "`.
 
@@ -42,17 +50,27 @@ tasks:
         - *waits* for the user to *type* something and *press enter*
         - and *returns* whatever the user *typed*.
       ru: |
-        будет позже
+        Напишите `print("Hello, world.")` в *консоли* справа и нажмите enter. Клавиша enter говорит плате исполнить введённую команду.
+
+        Функция - *команда*, которая принимает *аргументы* в скобках, что-то делает и *возвращает значение.* Функция `print` принимает 1 аргумент, печатает его в консоль и возвращает пусое значение, то есть ничего. Аргумент, который вы ей дали - `"Hello, world."`. Зачем нужны кавычки объясню чуть позже.
+
+        Теперь попробуйте запустить функцию `print` с любым другим текстом, например `"Жду ввода"` или просто `"> "`.
+
+        Ещё одна функция, встроенная в язык - `input`. Она
+        - принимает *один аргумент*
+        - *печатает* его
+        - *ждёт*, пока пользователь что-то *введёт* и *нажмёт enter*
+        - и *возвращает* то, что *ввёл* пользователь.
     sketch:
       en: functions.svg
-      ru: functions.ru.svg
+      ru: functions.svg
 
   - name:
       en: Variables
       ru: Переменные
     lesson:
       en: |
-        A variable is a *place in* computer's *memory*. It has a *name and a value*.
+        A variable is a *box* in computer's *memory*. It has a *name* and a you can put a *value* in it.
 
         Names can contain *letters a through z*, numbers and underscores. They can't start with a number. The name should be a *short description* of the data stored, like in the examples above. If the name consists of multiple words, use underscores instead of spaces.
 
@@ -61,6 +79,7 @@ tasks:
         - function *return values* (like `input("> ")`)
             - the function gets called (ran) first,
             - then the return value is written to the variable
+            - so the execution is right-to-left in a way
         - *expressions* (like `2 + 2` or `2 - another_variable`)
         - a *mix* of the above
 
@@ -68,10 +87,25 @@ tasks:
 
         Ask the user if they want to turn on the LED and save their response to a variable called `led_value`. If you're stuck, press the help button below.
       ru: |
-        будет позже
+        Переменная - *коробка* в *памяти* компьютера. У неё есть *имя* и в неё можно положить *значение*.
+
+        Имена могут состоять из *букв от a до z*, цифр и нижних подчёркиваний. Они не модут начинаться с цифры. Имя должно кратко описывать суть данных, хранимых в переменной, как на примере выше. Если имя состоит из нескольких слов, между ними ставятся нижние подчёркивания вместо пробелов.
+
+        Значения могут быть
+        - *буквальными* (literals, например `"текст"` или `64.5`)
+        - *возвращаемыми значениями* от функций (например `input("> ")`)
+            - в начале вызывается функция
+            - затем то, что она вернула, записывается в переменную
+            - то есть исполнение ведётся как бы справа налево
+        - *выражениями* (например `2 + 2` или `2 - some_variable`, где `some_variable` - другая переменная)
+        - *комбинацией* вышеперечисленных вариантов
+
+        Переменные можно задавать (`name = value`) или читать (просто `name`, во время исполнения кода это будет заменено на `value`).
+
+        Спросите у пользователя, хочет ли он включить светодиод и сохраните его ответ в переменную под названием `led_value`. Если у вас не получается, нажмите на кнопку с вопросительным знаком внизу экрана.
     sketch:
       en: variables.svg
-      ru: variables.ru.svg
+      ru: variables.svg
 
   - name:
       en: Data types
@@ -84,21 +118,37 @@ tasks:
 
         The *input* function *always* returns *`str`ings*. Doing math with its output results in an error, try `result = input("> ") + 1` and entering a number.
 
-        We can *convert* the output *into a different type*. For example, to turn a number into a string, you would use `str(16)`. The reverse looks like `int("32")`. String to bool is `bool("True")`.
+        We can *convert* the output *into a different type* by calling the function with the same name as our target type. For example, to turn a number into a string, you would use `str(16)`. The reverse looks like `int("16")`. String to bool (yes / no, on / off, etc.) is `bool("True")`.
 
         *Arithmetic* operators *work differently* with different types. Try adding together two *strings* (e.g., `"hello" + "world"`) and two *integers* (`10 + 32`).
 
-        Each command is executed from the inside:
+        Each line is executed from the inside:
         with `str(input("How old are you?"))`:
         - The inner function (`input("How old are you?")`) runs first
         - The returned value goes through `str` and gets converted.
 
         Use the card above to *make* `result = input("> ") + 1` actually *work*.
       ru: |
-        будет позже
+        У любого значения есть *тип*, например строка (`str` от англ. string) или целое число (`int` от англ. integer). В этой сфере практически все названия идут от английского, поэтому знание этого языка по сути обязательно.
+
+        Кавычки, которые мы использовали ранее, указывали, что значения были `str` (строками, т.е. текстом).
+
+        Функция `input` *всегда* возвращает строку, поэтому если использовать с ней арифметические операторы (попробуйте `result = input("> ") + 1` в консоли и введите число), будет ошибка.
+
+        Mы можем *привести* один тип к другому, т.е. преобразовать его, вызвав функцию с тем же именем, что у типа, к которому мы переходим. Например, чтобы преобразовать число в строку, нужно использовать функцию str, выглядит как `str(16)`. Обратное действие будет выглядеть как `int("16")`. Строка в bool (да / нет, вкл / выкл и т.д.) - `bool("True")`.
+
+        *Арифметические* операторы работают *по-разному* с разными типами. Попробуйте сложить две *строки* (например `"hello" + "world"`) и два *целых числа*
+         (`10 + 32`).
+
+        Каждая строка выполняется изнутри:
+        в случае `str(input("Сколько Вам лет?"))`:
+        - в начале отрабатывает внутренняя функция (`input("Сколько Вам лет?")`)
+        - затем значение, которое она вернула, передаётся в `str` и приводится к строке.
+
+        Пользуясь карточкой сверху, заставьте `result = input("> ") + 1` работать.
     sketch:
       en: data-types.svg
-      ru: data-types.ru.svg
+      ru: data-types.svg
 
   - name:
       en: Libraries
@@ -107,7 +157,7 @@ tasks:
       en: |
         A library is a *group of functions, variables & data types* with a *common purpose*. There are libraries for using the internet, making telegram bots, interacting with your computer, etc.
 
-        You have to *import* a library before you use it. Try `import board`.
+        You have to *import* a library before you use it. Run `import board`.
 
         To access things *inside* a library you use `library_name.variable` or `library_name.function(...)`.
 
@@ -117,10 +167,20 @@ tasks:
 
         Import `digitalio` as well, we'll need it in the next task.
       ru: |
-        будет позже
+        Библиотека - *набор функций, переменных и типов данных* с *общим назначением*. Существуют библиотеки для работы с Интернетом, для создания telegram ботов, для взаимодействия с компьютером и для многих других задач.
+
+        Перед использованием библиотеки её надо *импортировать* (подключить). Выполните `import board`.
+
+        Для обращения к *содержимому* библиотеки используется точка: `название_библиотеки.какая_то_переменная` или `название_библиотеки.функция(...)`.
+
+        Напишите в терминле `board.` и нажмите клавишу `tab` (слева от буквы `Q`) вместо `enter`, чтобы посмотреть, что есть в этой библиотеке.
+
+        Прогоните `print(board.board_id)`, чтобы получить модель платы, для нас она должна вернуть `lolin_s2_mini`.
+
+        Ещё подключите библиотеку `digitalio`, она нам сейчас понадобиться.
     sketch:
       en: none.svg
-      ru: none.ru.svg
+      ru: none.svg
 
   - name:
       en: Blinking the LED
@@ -137,7 +197,7 @@ tasks:
         - it takes one argument, the pin address (`board.LED` in this case)
         - and returns a controllable pin. Save it to a variable.
 
-        Pins have a direction (`the_variable_you_created.direction`), it can be:
+        Each pin has a direction (`the_variable_you_created.direction`), it can be:
         - `digitalio.Direction.INPUT`, or
         - `digitalio.Direction.OUTPUT`
 
@@ -145,10 +205,26 @@ tasks:
 
         Set the `value` of the pin (`the_variable_you_created.value`) to `True` to turn it on!
       ru: |
-        будет позже
+        Теперь о том, зачем они нам нужны:
+        - `board` (плата) используется для просмотра списка физических вводов / выводов
+        - `digitalio` (digital in-out, цифровой ввод-вывод) нужен для управления ими
+
+        Светодиод, припаянный к плате, подключён к *пину* (т.е. контакту) на чипе.
+
+        Вызовите функцию `DigitalInOut` из библиотеки `digitalio` (`digitalio.DigitalInOut`)
+        - она принимает один аргумент, это имя пина (в данном случае `board.LED`)
+        - и возвращает управляемый пин. Запишите его в переменную.
+
+        У каждого пина есть направление (`переменная_которую_вы_только_что_создали.direction`), оно может быть:
+        - `digitalio.Direction.INPUT` (вход / ввод) или
+        - `digitalio.Direction.OUTPUT` (выход / вывод)
+
+        Нам нужно *управлять* светодиодом, не читать его состояние, поэтому ставим вывод (`digitalio.Direction.OUTPUT`).
+
+        Теперь можно установить `value` на пине (`перемення_с_пином.value`) в значение `True`, чтобы включить его.
     sketch:
       en: digitalio.svg
-      ru: digitalio.ru.svg
+      ru: digitalio.svg
 
   - name:
       en: The Editor
@@ -169,10 +245,20 @@ tasks:
 
         You should see your LED go dark and the terminal print a few things before concluding with `code done running`.
       ru: |
-        будет позже
+        В центре Вашего экрана расположен редактор, который называется *vim*. Вим - модальный редактор (от mode, режим), т.е. клавиши на клавиатуре *ведут себя по-разному*, в зависимости от того, в каком *режиме* находистя редактор. Режим показан в нижней части экрана.
+
+        По умолчанию активен *нормальный* режим, он очень удобен для редактирования текста. Его мы рассмострим подробно в следующих проектах.
+
+        В нормальном режиме каждая клавиша привязана к определённой команде. Сейчас мы хотим написать программу, а для этого нам нужно *вставлять* символы вместо того, чтобы считать их командами. У вима для этого есть отдельный режим, который называется *режимом вставки*. Чтобы в него перейти, надо нажать `i` (от слова insert, всавка). Теперь редактро работает как любой другой, например блокнот.
+
+        Напишите два импорта, которые у нас уже были и нажмите enter дважды, чтобы оставить пустую строку между ними и следующим блоком кода. Всегда *оставляйте пустую строку между блоками логики, которые делают разные вещи*. Это улучшает читаемость кода, ровно как и имена переменных, описывающие их назначение.
+
+        Закончите программу для включения светодиода. Нажмите escape (левая верхняя клавиша на клавиатуре), чтобы вернуться в нормальный режим. Теперь нажмите `:`, чтобы войти в меню для более сложных команд и напишите `write` (т.е. записать) для сохранения изменений в файл (записи их на диск) и нажмите enter.
+
+        Светодиод погаснет, а в консоли появится несколько новых строк, последняя из которых - `code done running`.
     sketch:
       en: none.svg
-      ru: none.ru.svg
+      ru: none.svg
 
   - name:
       en: While loop
@@ -181,7 +267,7 @@ tasks:
       en: |
         So you told the LED to turn on, and it went dark. Why?
 
-        When you were sending individual commands through the console, the board ran them and waited for the next one. When you write a program in advance, *there is nothing to wait for*. The board runs every line one after the other and stops, resetting all outputs to `False`.
+        When you were sending individual commands through the console, the controller ran them and waited for the next one. When you write a program in advance, *there is nothing to wait for*. The board runs every line one after the other and stops, turning all the pins off.
 
         To prevent that, you have to keep feeding it commands. This is usually done by putting an *infinite while loop* at the end of your program.
 
@@ -195,28 +281,48 @@ tasks:
 
         Try putting a `print("waiting")` in the loop and save the file with `esc` followed by `:write`
       ru: |
-        будет позже
+        Так, то есть мы дали светодиоду команду на включение, а он выключился. Почему?
+
+        Когда мы отправлали отдельные команды в консоль, контроллер исполнял их и ждал следующей инструкции. Когда мы пишем программу целиком перед выполнением, *ждать уже нечего*. Плата просто запускает каждую строчку в файле, одну за другой, а затем останавливается и отключает все выходы.
+
+        Чтобы это предотвратить, нужно продолжать скармливать ей команды. Обычно для этого используют *бесконечный цикл с условием* в конце программы.
+
+        Цикл с условием (или *while*) - это блок кода, который перезапускается, пока верно определённое *условие*. Условие - выражение, которое превращается в `bool` во время работы. Если получается `True`, цикл выполняется ещё раз. Если будет `False`, цикл остановится и перейдёт на следующую строку после него.
+
+        Превая строка цикла while - `while условие:`. Поскольку нам нужно, чтобы цикл повторялся вечно, мы можем написать что-то вроде `while 0 < 1:` или `while 2 + 2 < 5:` или просто `while True:`. Напоминаю: для вставки символов нужно нажать i в редакторе, иначе он считает кнопки командами.
+
+        Когда вы нажмёте enter, вы увидите 4 пробела в начале следующей строки. Это нормально и называется *оступом* (indentation). У неё 2 цели:
+        1. код проще читать. Читатель знает, что код с отступом находится *внутри* чего-то (например цикла). Сразу визуально видно, где заканчивается цикл, даже не надо его читать
+        2. python опирается на оступы и двоеточия с той же целью - чтобы понять, что во что вложено
+
+        Попробуйте написать `print("waiting")` в цикле и сохранить файл (`escape`, потом `:write`)
     sketch:
       en: while.svg
-      ru: while.ru.svg
+      ru: while.svg
 
   - name:
       en: Waiting
       ru: Ждём
     lesson:
       en: |
-        Printing the same message over and over again forever is not ideal. We can just wait instead. There are a few ways to do that in Python.
+        Well, printing the same message over and over until the haet death of the universe is not ideal either. We can just wait instead. There are a few ways to do that in Python.
 
         If you want to *stop for a specific time*, you can use the `sleep` function from the `time` library. It takes an amount of *seconds*, stops for that long, and returns nothing.
 
         If you don't have a specific time, there is the `pass` keyword. It is literally an instruction that does nothing. This thing is most commonly used as either a placeholder for not yet written code, or as a "stop" inside an infinite loop.
 
-        Replace the `print` command with a `pass`.
+        Replace the `print` command with a `pass` and save the file.
       ru: |
-        будет позже
+        С другой стороны, выводить одно и то же сообщение снова и снова до тепловой смерти вселенной - тоже не идеальное решение. Вместо этого можно просто подождать. В Python для этого существует несколко спосопов.
+
+        Если Вам нужно остановить программу *на определённое время*, используйте функцию `sleep` из библиотеки `time`. Она принимает время в секундах в качестве единственного аргумента, ждёт это время и ничего не возвращает.
+
+        Если конкретное время не имеет значения, то можно использовать слово `pass`. Это буквально инструкция, которая ничего не делает. Она чаще всего используется или как заглушка на месте кода, который ещё не написан, или как "стоп" внутри бесконечного цикала.
+
+        Замените `print` на `pass` и сохраните программу.
     sketch:
       en: waiting.svg
-      ru: waiting.ru.svg
+      ru: waiting.svg
 
   - name:
       en: Relay
@@ -225,16 +331,26 @@ tasks:
       en: |
         The LED is cool and all, but let's connect a real load now.
 
+        A relay is a controllable switch. You give a little power to its IN pins and it connects the OUT contacts. OUT is a completely different circuit, you can use it for anything, even to control a wall plug.
+
         Take a relay, connect power and ground. Wire relay's IN1 to the board's pin 16 and IN2 to pin 18.
 
         Change `board.LED` to `board.IO16`. Rename the variable if you called it `led` and save the file.
 
         The relay should click on. If it didn't, change `True` to `False` (some modules are inverted).
       ru: |
-        будет позже
+        Светодиод это конечно хорошо, но полезно только как индикация. Разберём подключение реальной нагрузки.
+
+        Реле - управляемый выключатель. Если на его входные (IN) пины подать питание, оно соединит свои выходы (OUT). OUT контакты находятся в полностью отдельной электрической схеме, поэтому их можно использовать для чего угодно, включая нагрузку на 220В.
+        
+        Возьмите реле, подключите питание и землю. Подсоедините IN1 к 16му пину на плате,а IN2 - к 18му.
+
+        В программе поменяйте `board.LED` на `board.IO16`. Переименуйте переменную, если вы назвали её по типу `led` и сохраните файл.
+
+        Реле должно включиться. Если оно этого не сделало, поменяйте `True` на `False` (некоторые модули инвертируют входной сигнал).
     sketch:
       en: relay.svg
-      ru: relay.ru.svg
+      ru: relay.svg
 
   - name:
       en: Relay Timer
@@ -255,25 +371,41 @@ tasks:
 
         We now have an electronic switch that runs on a schedule, why could we need that?
       ru: |
-        будет позже
+        Теперь создайте переменные `run_time` для времени работы и `wait_time` для времени ожидания. Перейдите к началу файла, нажав `gg` в нормальном режиме и создайте новую строку нажатием `o`. Импортируйте `time`.
+
+        - Перенесите `переменная_для_реле.value = True` (или `False`) в цикл
+        - Подождите `run_time` секунд
+        - Отключите реле
+        - Подождите `wait_time` секунд
+        - Уберите `pass`, так как теперь у нас в цикле есть другие инструкции
+
+        Пример на карточке включает реле на 5 минут каждый час. Вы можете подстроить это под что угодно. Я просто убирал `* 60`.
+
+        Теперь у нас есть электронный выключатель, который работает по расписанию, а зачем?
     sketch:
       en: relay-timer.svg
-      ru: relay-timer.ru.svg
+      ru: relay-timer.svg
 
   - name:
       en: Practical Applications
       ru: Реальные применения
     lesson:
       en: |
+        - alarm clocks
+        - a switch that reboots the connected device every day
         - plant watering
         - growlights
-        - alarm clocks
-        - a device that reboots the load every day
+        - practically anything else for the plants :)
+
+        We'll make a better alarm as our next project!
       ru: |
+        - будильники
+        - выключатель, который перезагружает подключённое устройство каждый день
         - полив растений
         - свет для растений
-        - будильники
-        - устройство, которое перезагружает нагрузку каждый день
+        - да и почти что угодно ещё для растений)
+
+        В следующем проекте сделаем будильник получше!
     sketch:
       en: none.svg
-      ru: none.ru.svg
+      ru: none.svg
