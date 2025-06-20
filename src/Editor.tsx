@@ -1,3 +1,8 @@
-export default function Editor() {
-  return <div>TODO</div>;
+export default function Editor({
+  content,
+}: {
+  content?: string;
+  onUpdate?: (data: string) => void;
+}) {
+  return <pre>{content || "(empty)"}</pre>;
 }

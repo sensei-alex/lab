@@ -1,53 +1,59 @@
 import { useEffect, useState } from "react";
-import YAML from 'yaml'
+import YAML from "yaml";
 
-const LESSONS_URL = "https://snlx.net/lab-src/lab-"
+const BASE_URL = "https://snlx.net/lab-src/";
 
 export type Lesson = {
-  lang: string,
-  lesson: string,
-  solution?: string,
-  prev?: string,
-  next?: string,
-}
+  lang: string;
+  body: string;
+  solution?: string;
+  prev?: string;
+  next?: string;
+};
 
 export function useLesson(initialLessonId: string) {
   const [lessonId, setLessonId] = useState(initialLessonId);
   const [lesson, setLesson] = useState<Lesson | null>(null);
 
   useEffect(() => {
-    const controller = new AbortController()
+    console.log("refetching");
+    const controller = new AbortController();
 
-    getLesson(LESSONS_URL + lessonId + ".md", controller.signal)
-    .then(setLesson)
+    getLesson(BASE_URL + lessonId + ".md", controller.signal).then(setLesson);
 
-    return () => controller.abort()
-  }, [LESSONS_URL, lessonId])
+    return () => controller.abort();
+  }, [BASE_URL, lessonId]);
+
+  useEffect(() => console.log(lessonId, lesson), [lessonId, lesson]);
 
   function next() {
-    //todo
+    if (!lesson?.next) return;
+
+    setLessonId(lesson.next);
   }
 
   function prev() {
-    //todo
+    if (!lesson?.prev) return;
+
+    setLessonId(lesson.prev);
   }
 
-  return {lesson, setLessonId, next, prev}
+  return { lesson, setLessonId, next, prev };
 }
 
 async function getLesson(url: string, signal: AbortSignal): Promise<Lesson> {
-  const response = await fetch(url, {signal});
-  const markdown = await response.text()
+  const response = await fetch(url, { signal });
+  const markdown = await response.text();
 
-  const [frontmatter, lesson, solution] = markdown.split("\n---\n");
+  const [frontmatter, body, solution] = markdown.split("\n---\n");
 
-  const {lang, next, prev} = YAML.parse(frontmatter)
+  const { lang, next, prev } = YAML.parse(frontmatter);
 
   return {
     lang: lang || "en",
-    next: next.replace(/["\[\]]/g, ""),
-    prev: prev.replace(/["\[\]]/g, ""),
-    lesson,
-    solution
-  }
+    next: next?.replace(/["\[\]]/g, ""),
+    prev: prev?.replace(/["\[\]]/g, ""),
+    body,
+    solution,
+  };
 }
