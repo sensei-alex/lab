@@ -23,6 +23,8 @@ export default function Editor({
       extensions={[drawSelection(), python(), vim()]}
       onChange={setValue}
       theme={catppuccinMocha}
+      height="62vh"
+      autoFocus={true}
     />
   );
 }
