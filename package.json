@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@catppuccin/codemirror": "^1.0.1",
+    "@codemirror/lang-python": "^6.2.1",
     "@radix-ui/react-slot": "^1.2.3",
+    "@replit/codemirror-vim": "^6.3.0",
     "@tailwindcss/vite": "^4.1.10",
+    "@uiw/react-codemirror": "^4.23.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.516.0",

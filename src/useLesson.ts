@@ -3,10 +3,15 @@ import YAML from "yaml";
 
 const BASE_URL = "https://snlx.net/lab-src/";
 
+export type Code = {
+  language: string;
+  body: string;
+};
+
 export type Lesson = {
   lang: string;
   body: string;
-  solution?: string;
+  solution?: Code;
   prev?: string;
   next?: string;
 };
@@ -45,9 +50,17 @@ async function getLesson(url: string, signal: AbortSignal): Promise<Lesson> {
   const response = await fetch(url, { signal });
   const markdown = await response.text();
 
-  const [frontmatter, body, solution] = markdown.split("\n---\n");
+  const [frontmatter, body, rawSolution] = markdown.split("\n---\n");
 
   const { lang, next, prev } = YAML.parse(frontmatter);
+
+  const solutionLines = rawSolution?.trim().split("\n");
+  const solution: Code | undefined = rawSolution
+    ? {
+        language: solutionLines[0].slice(3),
+        body: solutionLines.slice(1, -1).join("\n"),
+      }
+    : undefined;
 
   return {
     lang: lang || "en",

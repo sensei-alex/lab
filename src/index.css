@@ -1,3 +1,10 @@
 @import "@catppuccin/tailwindcss/mocha.css";
 @import "tailwindcss";
 @import "tw-animate-css";
+
+html,
+body,
+.cm-theme {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 16px;
+}
