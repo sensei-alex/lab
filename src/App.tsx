@@ -29,8 +29,9 @@ function App() {
   }
 
   return (
-    <div className="bg-ctp-base h-screen w-screen mocha text-ctp-text grid grid-cols-[auto_70ch_1fr]">
+    <div className="bg-ctp-base h-screen w-screen mocha text-ctp-text grid grid-cols-[auto_75ch_1fr]">
       <Sidebar
+        helpBeingShown={showSolution}
         onNext={hideSolutionAnd(next)}
         onPrev={hideSolutionAnd(prev)}
         onHelp={toggleSolution}

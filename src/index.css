@@ -8,3 +8,12 @@ body,
   font-family: "JetBrains Mono", monospace;
   font-size: 16px;
 }
+
+.prose > * {
+  @apply mb-4;
+}
+
+.prose > h1,
+.prose > h2 {
+  @apply text-3xl text-ctp-lavender font-bold;
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import YAML from "yaml";
 
-const BASE_URL = "https://snlx.net/lab-src/";
+export const BASE_URL = "https://snlx.net/lab-src/";
 
 export type Code = {
   language: string;
@@ -24,10 +24,10 @@ export function useLesson(initialLessonId: string) {
     console.log("refetching");
     const controller = new AbortController();
 
-    getLesson(BASE_URL + lessonId + ".md", controller.signal).then(setLesson);
+    getLesson(lessonId, controller.signal).then(setLesson);
 
     return () => controller.abort();
-  }, [BASE_URL, lessonId]);
+  }, [lessonId]);
 
   useEffect(() => console.log(lessonId, lesson), [lessonId, lesson]);
 
@@ -46,8 +46,16 @@ export function useLesson(initialLessonId: string) {
   return { lesson, setLessonId, next, prev };
 }
 
-async function getLesson(url: string, signal: AbortSignal): Promise<Lesson> {
-  const response = await fetch(url, { signal });
+async function getLesson(
+  lessonId: string,
+  signal: AbortSignal,
+): Promise<Lesson> {
+  const title = lessonId
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  const response = await fetch(BASE_URL + lessonId + ".md", { signal });
   const markdown = await response.text();
 
   const [frontmatter, body, rawSolution] = markdown.split("\n---\n");
@@ -66,7 +74,14 @@ async function getLesson(url: string, signal: AbortSignal): Promise<Lesson> {
     lang: lang || "en",
     next: next?.replace(/["\[\]]/g, ""),
     prev: prev?.replace(/["\[\]]/g, ""),
-    body,
+    body: `# ${removePrefix(title)}\n\n${body}`,
     solution,
   };
+}
+
+// All files have that prefix in their name because it's easier for me to organize my obsidian vault that way
+function removePrefix(title: string) {
+  if (title.startsWith("Lab ")) return title.slice(4);
+
+  return title;
 }
