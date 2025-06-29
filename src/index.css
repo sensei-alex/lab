@@ -17,3 +17,12 @@ body,
 .prose > h2 {
   @apply text-3xl text-ctp-lavender font-bold;
 }
+
+.terminal {
+  width: 100%;
+  height: 100%;
+}
+
+.xterm .xterm-viewport {
+  overflow: hidden !important;
+}

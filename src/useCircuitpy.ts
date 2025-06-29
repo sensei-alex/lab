@@ -67,7 +67,7 @@ async function findCircuitpyDevice(
   }
 
   notify("Retrying...");
-  await new Promise((resolve) => setTimeout(resolve, 5000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   return findCircuitpyDevice(notify);
 }
 
