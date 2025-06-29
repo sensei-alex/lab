@@ -10,7 +10,7 @@ export function Dev({ editorContent }: { editorContent?: Code }) {
 
   return (
     <div className="grid grid-rows-[100fr_62fr] h-svh">
-      <Editor content={editorContent || board.code} />
+      <Editor content={editorContent || board.code} onUpdate={board.saveCode} />
       <CircuitPythonShell value={log} />
     </div>
   );
