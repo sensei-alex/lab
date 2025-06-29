@@ -9,7 +9,7 @@ export function Dev({ editorContent }: { editorContent?: Code }) {
   const board = useCircuitpy({ print: setLog });
 
   return (
-    <div className="grid grid-rows-[100fr_62fr]">
+    <div className="grid grid-rows-[100fr_62fr] h-svh">
       <Editor content={editorContent || board.code} />
       <CircuitPythonShell value={log} />
     </div>
