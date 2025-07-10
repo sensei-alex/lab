@@ -29,7 +29,10 @@ function App() {
   }
 
   return (
-    <div className="bg-ctp-base h-svh w-screen mocha text-ctp-text grid grid-cols-[auto_75ch_1fr]">
+    <div
+      className="bg-ctp-base h-svh w-screen mocha text-ctp-text grid grid-cols-[auto_75ch_1fr]"
+      translate="no"
+    >
       <Sidebar
         helpBeingShown={showSolution}
         onNext={hideSolutionAnd(next)}
