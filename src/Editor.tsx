@@ -23,10 +23,6 @@ export default function Editor({
       });
   }, [value, onUpdate]);
 
-  useEffect(() => {
-    console.log({ value, content });
-  }, [value, content]);
-
   Vim.defineEx("write", "w", () => {
     onUpdateRef.current();
   });

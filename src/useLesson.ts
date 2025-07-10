@@ -29,8 +29,6 @@ export function useLesson(initialLessonId: string) {
     return () => controller.abort();
   }, [lessonId]);
 
-  useEffect(() => console.log(lessonId, lesson), [lessonId, lesson]);
-
   function next() {
     if (!lesson?.next) return;
 
