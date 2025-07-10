@@ -16,18 +16,25 @@ export type Lesson = {
   next?: string;
 };
 
-export function useLesson(initialLessonId: string) {
+export function useLesson(initialLessonId?: string) {
   const [lessonId, setLessonId] = useState(initialLessonId);
   const [lesson, setLesson] = useState<Lesson | null>(null);
 
   useEffect(() => {
-    console.log("refetching");
+    if (!lessonId) {
+      const url = new URL(window.location.href);
+      const params = url.searchParams;
+      setLessonId(params.get("lesson") || "lab-welcome");
+      return;
+    }
+
+    console.log("fetching the lesson");
     const controller = new AbortController();
 
     getLesson(lessonId, controller.signal).then(setLesson);
 
     return () => controller.abort();
-  }, [lessonId]);
+  }, [lessonId, setLessonId]);
 
   function next() {
     if (!lesson?.next) return;
@@ -67,6 +74,15 @@ async function getLesson(
         body: solutionLines.slice(1, -1).join("\n"),
       }
     : undefined;
+
+  const newurl =
+    window.location.protocol +
+    "//" +
+    window.location.host +
+    window.location.pathname +
+    "?lesson=" +
+    lessonId;
+  window.history.pushState({ path: newurl }, "", newurl);
 
   return {
     lang: lang || "en",

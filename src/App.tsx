@@ -6,7 +6,7 @@ import { useLesson } from "./useLesson";
 import { Loader } from "lucide-react";
 
 function App() {
-  const { lesson, next, prev } = useLesson("lab-mockup");
+  const { lesson, next, prev } = useLesson();
   const [showSolution, setShowSolution] = useState(false);
 
   function toggleSolution() {
