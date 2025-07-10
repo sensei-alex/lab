@@ -6,9 +6,15 @@ export function CircuitPythonShell({ ip }: { ip: string }) {
   const [addons] = useState([new FitAddon()]);
   const { instance, ref } = useXTerm({ addons });
 
-  useEffect(() => {
+  function reconnect() {
     const conn = new WebSocket("ws://:hunter2@" + ip + "/cp/serial/");
-    conn.onopen = () => {};
+    conn.onopen = () => {
+      console.log("terminal connection established");
+    };
+    conn.onclose = () => {
+      console.log("terminal connection closed, re-establishing");
+      reconnect();
+    };
 
     conn.onmessage = ({ data }) => {
       setTimeout(() => addons[0].fit(), 0);
@@ -17,6 +23,7 @@ export function CircuitPythonShell({ ip }: { ip: string }) {
 
     if (instance) {
       instance.onData((data) => {
+        console.log("sending", data);
         conn.send(data);
       });
 
@@ -50,9 +57,12 @@ export function CircuitPythonShell({ ip }: { ip: string }) {
     }
 
     return () => {
+      conn.onclose = () => {};
       conn.close();
     };
-  }, [instance, ip]);
+  }
+
+  useEffect(reconnect, [instance, ip]);
 
   return (
     <div
