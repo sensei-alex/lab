@@ -18,6 +18,10 @@ body,
   @apply text-3xl text-ctp-lavender font-bold;
 }
 
+.prose > ul {
+  @apply list-disc marker:text-ctp-teal pl-4;
+}
+
 .terminal {
   width: 100%;
   height: 100%;
