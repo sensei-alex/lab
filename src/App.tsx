@@ -35,8 +35,8 @@ function App() {
     >
       <Sidebar
         helpBeingShown={showSolution}
-        onNext={hideSolutionAnd(next)}
-        onPrev={hideSolutionAnd(prev)}
+        onNext={lesson.next ? hideSolutionAnd(next) : undefined}
+        onPrev={lesson.prev ? hideSolutionAnd(prev) : undefined}
         onHelp={toggleSolution}
       />
       <Prose content={lesson.body} />
