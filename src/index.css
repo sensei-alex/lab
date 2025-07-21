@@ -1,0 +1,32 @@
+@import "@catppuccin/tailwindcss/mocha.css";
+@import "tailwindcss";
+@import "tw-animate-css";
+
+html,
+body,
+.cm-theme {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 16px;
+}
+
+.prose > * {
+  @apply mb-4;
+}
+
+.prose > h1,
+.prose > h2 {
+  @apply text-3xl text-ctp-lavender font-bold;
+}
+
+.prose > ul {
+  @apply list-disc marker:text-ctp-teal pl-4;
+}
+
+.terminal {
+  width: 100%;
+  height: 100%;
+}
+
+.xterm .xterm-viewport {
+  overflow: hidden !important;
+}
