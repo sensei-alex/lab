@@ -19,8 +19,16 @@ export function Sidebar({
         icon={HelpCircle}
         variant={helpBeingShown ? "accent" : "default"}
       />
-      <Button onClick={onPrev} variant={onPrev ? "safe" : "destructive"} icon={ChevronLeft} />
-      <Button onClick={onNext} variant={onNext ? "safe" : "destructive"} icon={ChevronRight} />
+      <Button
+        onClick={onPrev}
+        variant={onPrev ? "safe" : "destructive"}
+        icon={ChevronLeft}
+      />
+      <Button
+        onClick={onNext}
+        variant={onNext ? "safe" : "destructive"}
+        icon={ChevronRight}
+      />
     </aside>
   );
 }

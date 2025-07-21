@@ -14,6 +14,7 @@ export type Lesson = {
   solution?: Code;
   prev?: string;
   next?: string;
+  runner?: string;
 };
 
 export function useLesson(initialLessonId?: string) {
@@ -60,12 +61,15 @@ async function getLesson(
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
-  const response = await fetch(BASE_URL + lessonId + ".md", { signal });
+  const response = await fetch(BASE_URL + lessonId + ".md", {
+    signal,
+    cache: "no-store",
+  });
   const markdown = await response.text();
 
   const [frontmatter, body, rawSolution] = markdown.split("\n---\n");
 
-  const { lang, next, prev } = YAML.parse(frontmatter);
+  const { lang, next, prev, runner } = YAML.parse(frontmatter);
 
   const solutionLines = rawSolution?.trim().split("\n");
   const solution: Code | undefined = rawSolution
@@ -90,6 +94,7 @@ async function getLesson(
     prev: prev?.replace(/["\[\]]/g, ""),
     body: `# ${removePrefix(title)}\n\n${body}`,
     solution,
+    runner,
   };
 }
 

@@ -39,8 +39,18 @@ function App() {
         onPrev={lesson.prev ? hideSolutionAnd(prev) : undefined}
         onHelp={toggleSolution}
       />
-      <Prose content={lesson.body} />
-      <Dev editorContent={showSolution ? lesson.solution : undefined} />
+      {lesson.runner === "none" ? (
+        <div className="col-span-2">
+          <div className="w-[75ch] m-auto">
+            <Prose content={lesson.body} />
+          </div>
+        </div>
+      ) : (
+        <>
+          <Prose content={lesson.body} />
+          <Dev editorContent={showSolution ? lesson.solution : undefined} />
+        </>
+      )}
     </div>
   );
 }
